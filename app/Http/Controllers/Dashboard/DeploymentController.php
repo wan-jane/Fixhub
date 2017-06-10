@@ -11,6 +11,7 @@
 
 namespace Fixhub\Http\Controllers\Dashboard;
 
+use Fixhub\Bus\Jobs\GitCheckoutNewRelease;
 use Fixhub\Http\Controllers\Controller;
 use Fixhub\Bus\Jobs\AbortDeployment;
 use Fixhub\Bus\Jobs\ApproveDeployment;
@@ -159,6 +160,19 @@ class DeploymentController extends Controller
 
         if ($deployment->isApproved()) {
             dispatch(new ApproveDeployment($deployment));
+        }
+
+        return redirect()->route('deployments', [
+            'id' => $deployment_id,
+        ]);
+    }
+
+    public function xnwDeploy($deployment_id)
+    {
+        $deployment = Deployment::findOrFail($deployment_id);
+
+        if ($deployment->isApproved()) {
+            dispatch(new GitCheckoutNewRelease($deployment));
         }
 
         return redirect()->route('deployments', [

@@ -87,6 +87,11 @@ Route::group([
             'uses'  => 'DeploymentController@deploy',
         ]);
 
+        Route::get('deployment/{id}/xnw_deploy', [
+            'as'    => 'deployments.xnw_deploy',
+            'uses'  => 'DeploymentController@xnwDeploy',
+        ]);
+
         Route::get('deployment/{id}', [
             'as'   => 'deployments',
             'uses' => 'DeploymentController@show',

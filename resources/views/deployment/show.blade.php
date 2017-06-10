@@ -12,6 +12,7 @@
                 <a href="{{ route('deployments.approve', ['id' => $deployment->id]) }}" class="btn btn-info"> {{ trans('deployments.approve') }}</a>
             @elseif($deployment->isApproved())
             <a href="{{ route('deployments.deploy', ['id' => $deployment->id]) }}" class="btn btn-success"> {{ trans('deployments.deploy') }}</a>
+            <!--a href="{{ route('deployments.xnw_deploy', ['id' => $deployment->id]) }}" class="btn btn-success"> {{ trans('deployments.deploy') }}</a-->
             @endif
         @endif
         </span>
