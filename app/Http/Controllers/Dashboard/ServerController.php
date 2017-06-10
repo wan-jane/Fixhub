@@ -108,8 +108,8 @@ class ServerController extends Controller
         if (!$server->isTesting()) {
             $server->status = Server::TESTING;
             $server->save();
-
-            dispatch(new TestServerConnection($server));
+            $job = new TestServerConnection($server);
+            dispatch($job);
         }
 
         return [

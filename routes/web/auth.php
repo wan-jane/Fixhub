@@ -15,6 +15,7 @@ Route::group([
     'as'         => 'auth.',
     'prefix'     => 'auth',
 ], function () {
+
     Route::get('login', [
             'middleware' => 'guest',
             'as'         => 'login',

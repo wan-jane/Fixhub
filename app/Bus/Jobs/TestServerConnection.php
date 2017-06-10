@@ -13,6 +13,7 @@ namespace Fixhub\Bus\Jobs;
 
 use Fixhub\Models\Server;
 use Fixhub\Services\Scripts\Runner as Process;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
@@ -20,9 +21,9 @@ use Illuminate\Queue\SerializesModels;
 /**
  * Tests if a server can successfully be SSHed into.
  */
-class TestServerConnection extends Job implements ShouldQueue
+class TestServerConnection extends Job //implements ShouldQueue
 {
-    use InteractsWithQueue, SerializesModels;
+    //use InteractsWithQueue, SerializesModels, Queueable;
 
     public $server;
 
@@ -46,10 +47,9 @@ class TestServerConnection extends Job implements ShouldQueue
     {
         $this->server->status = Server::TESTING;
         $this->server->save();
-
         $key = tempnam(storage_path('app/'), 'sshkey');
-        file_put_contents($key, $this->server->project->key->private_key);
 
+        file_put_contents($key, $this->server->project->key->private_key);
         try {
             $process = new Process('TestServerConnection', [
                 'project_path'   => $this->server->clean_path,

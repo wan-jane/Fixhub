@@ -35,7 +35,8 @@ use Illuminate\Support\Facades\Cache;
  */
 class DeployProject extends Job implements ShouldQueue
 {
-    use InteractsWithQueue, SerializesModels, DispatchesJobs;
+    use InteractsWithQueue, SerializesModels;
+    use DispatchesJobs;
 
     private $deployment;
     private $project;
